@@ -6,4 +6,6 @@ urlpatterns = [
    path('dashboard', views.home, name="home"),
    path('student/<str:pk_test>/', views.student, name="student"),
    path('assessment', views.assessment, name="assessment"),
+   path('register', views.registerPage, name="register"),
+   path('login', views.loginPage, name="login"),
 ]
