@@ -1,0 +1,82 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+
+	<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>{{student.name}}</h5>
+			<hr>
+			<a class="btn btn-outline-primary  btn-sm btn-block mb-2" href="">Update Profile</a>
+			<a class="btn btn-outline-warning  btn-sm btn-block" href="{% url 'assessment' %}">Take Assessment</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information</h5>
+			<hr>
+			<p>Email: {{student.email}}</p>
+			<p>Phone: {{student.phone}}</p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Assessments</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{assessment_count}}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+
+			<form method="get">
+				{% comment %} {{myFilter.form}} {% endcomment %}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+
+		</div>
+	</div>
+	
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Assessment ID</th>
+					<th>Diagnosis</th>
+					<th>Symptoms</th>
+					<th>Date Created</th>
+                    <th>Note</th>
+				</tr>
+
+				{% for assessment in assessments %}
+
+				<tr>
+					<td>{{assessment.assessment_number}}</td>
+					<td>{{assessment.diagnosis}}</td>
+					<td>{{assessment.symptoms}}</td>
+					<td>{{assessment.date_created}}</td>
+                    <td>{{assessment.note}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

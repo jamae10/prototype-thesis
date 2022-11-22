@@ -1,0 +1,69 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+
+{%  include 'status.html' %}
+
+<br>
+
+<div class="row">
+	<div class="col-md-5">
+		<h5>STUDENTS:</h5>
+		<hr>
+		<div class="card card-body">
+			<a class="btn btn-primary  btn-sm btn-block" href="">Create Student</a>
+			<table class="table table-sm">
+				<tr>
+					<th></th>
+					<th>Student</th>
+					<th>Phone</th>
+				</tr>
+
+				{% for student in students %}
+					<tr>
+						<td><a class="btn btn-sm btn-info" href="{% url 'student' student.student_id %}">View</a></td>
+						<td>{{student.name}}</td>
+						<td>{{student.phone}}</td>
+					</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+
+	<div class="col-md-7">
+		<h5>LAST 5 ASSESSMENTS</h5>
+		<hr>
+		<div class="card card-body">
+			
+			<table class="table table-sm">
+				<tr>
+					<th>Assessment ID</th>
+					<th>Date Created</th>
+					<th>Symptoms</th>
+                    <th>Diagnosis</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+
+				{% for assessment in assessments %}
+					<tr>
+						<td>{{assessment.assessment_number}}</td>
+						<td>{{assessment.date_created}}</td>
+						<td>{{assessment.symptoms}}</td>
+                        <td>{{assessment.diagnosis}}</td>
+						<td><a class="btn btn-sm btn-info" href="">Update</a></td>
+
+						<td><a class="btn btn-sm btn-danger" href="">Delete</a></td>
+
+					</tr>
+				{% endfor %}
+
+		
+			</table>
+		</div>
+	</div>
+
+</div>
+
+{% endblock %}
