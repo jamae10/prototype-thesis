@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
@@ -18,6 +21,7 @@ class Student(models.Model):
         MALE = "M", _("Male")
         FEMALE = "F", _("Female")
 
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True)
     student_id = models.CharField(max_length=12, null=True)
     phone = models.CharField(max_length=12, null=True)
@@ -32,6 +36,18 @@ class Student(models.Model):
         max_length=50, choices=Boostered.choices, default=Boostered.NEVER
     )
     date_created = models.DateTimeField(auto_now_add=True, null=True)
+
+    class Meta:
+        db_table = 'student'
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Student.objects.create(user=instance)
+    
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.student.save()
 
     def __str__(self):
         return self.name
