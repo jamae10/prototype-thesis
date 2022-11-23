@@ -21,7 +21,7 @@ warnings.filterwarnings('ignore')
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Reading the train data by removing the last column since it's an empty column
-DATA_PATH = os.path.join(BASE_DIR, 'static/datasets/Training.csv')
+DATA_PATH = os.path.join(BASE_DIR, 'static/datasets/Train.csv')
 data = pd.read_csv(DATA_PATH).dropna(axis = 1)
 
 # Checking whether the dataset is balanced or not
