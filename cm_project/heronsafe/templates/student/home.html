@@ -1,4 +1,4 @@
-{%  extends 'main.html' %}
+{%  extends 'student/base.html' %}
 
 {% block content %}
 
@@ -7,7 +7,7 @@
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
-			<h5>{{student.name}}</h5>
+			<h5>{{ user.get_full_name }}</h5>
 			<hr>
 			<a class="btn btn-outline-primary  btn-sm btn-block mb-2" href="">Update Profile</a>
 			<a class="btn btn-outline-warning  btn-sm btn-block" href="{% url 'assessment' %}">Take Assessment</a>
@@ -60,7 +60,7 @@
 					<th>Diagnosis</th>
 					<th>Symptoms</th>
 					<th>Date Created</th>
-                    <th>Note</th>
+                    {% comment %} <th>Note</th> {% endcomment %}
 				</tr>
 
 				{% for assessment in assessments %}
@@ -70,7 +70,7 @@
 					<td>{{assessment.diagnosis}}</td>
 					<td>{{assessment.symptoms}}</td>
 					<td>{{assessment.date_created}}</td>
-                    <td>{{assessment.note}}</td>
+                    {% comment %} <td>{{assessment.note}}</td> {% endcomment %}
 				</tr>
 				{% endfor %}
 

@@ -36,8 +36,9 @@ def loginPage(request):
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
-                login(request, user)
-                return redirect('base')
+                if user.is_staff == False:
+                    login(request, user)
+                    return redirect('base')
             else:
                 messages.info(request, 'Username OR password is incorrect')
 
@@ -66,15 +67,19 @@ def student(request, pk_test):
     context = {'student': student, 'assessments': assessments, 'assessment_count':assessment_count}
     return render(request, 'student.html', context)
 
-def base(request):
-    # student = Student.objects.get(student_id=pk_test)
-    # assessments = student.assessment_set.all()
-    # assessment_count = assessments.count()
+@login_required(login_url='login')
+def base(request, ):
+    # user = request.user()
+    # email = user.email
+    student = Student.objects.get(user=request.user)
+    assessments = student.assessment_set.all()
+    assessment_count = assessments.count()
 
-    # context = {'student': student, 'assessments': assessments, 'assessment_count':assessment_count}
-    context ={}
+    context = {'student': student, 'assessments': assessments, 'assessment_count':assessment_count}
+    # context ={}
     return render(request, 'student/home.html', context)
 
+@login_required(login_url='login')
 def assessment(request):
     fruits = []
     results = {}

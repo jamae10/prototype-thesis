@@ -12,7 +12,8 @@
           {% comment %} <a class="nav-item nav-link" style="color:#FFFFFF" href="#">Assessment</a> {% endcomment %}
       </div>
       <div class="navbar-nav">
-        <a type="button" class="nav-item nav-link px-5" style="color:#FFFFFF">Logout</a>
+        <a type="" class="nav-item nav-link px-5" style="color:#FFFFFF">Logged in as {{ user.get_full_name }}</a>
+        <a type="button" class="nav-item nav-link px-5" style="color:#FFFFFF" href="{% url 'logout' %}">Logout</a>
       </div>
     </div>
   </nav>
