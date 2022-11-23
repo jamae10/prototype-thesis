@@ -10,7 +10,7 @@
 			<h5>{{ user.get_full_name }}</h5>
 			<hr>
 			<a class="btn btn-outline-primary  btn-sm btn-block mb-2" href="">Update Profile</a>
-			<a class="btn btn-outline-warning  btn-sm btn-block" href="{% url 'assessment' %}">Take Assessment</a>
+			<a class="btn btn-outline-warning  btn-sm btn-block" href="{% url 'assessment' student.student_id %}">Take Assessment</a>
 
 		</div>
 	</div>

@@ -11,6 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
+from .models import *
+
 
 # Remove warnings from terminal
 import warnings
@@ -83,6 +85,7 @@ def predictDisease(symptoms):
     rf_prediction = data_dict["predictions_classes"][final_rf_model.predict(input_data)[0]]
     gb_prediction = data_dict["predictions_classes"][final_gb_model.predict(input_data)[0]]
      
+    
     # Making final prediction with combined models
     final_prediction = mode([lr_prediction, rf_prediction, gb_prediction])[0][0]
     predictions = {

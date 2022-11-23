@@ -6,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
+import uuid
+import datetime
 # Create your views here.
 
 def registerPage(request):
@@ -80,15 +82,40 @@ def base(request, ):
     return render(request, 'student/home.html', context)
 
 @login_required(login_url='login')
-def assessment(request):
+def assessment(request, pk_test):
+    student = Student.objects.get(student_id=pk_test)
     fruits = []
     results = {}
     symptom = ""
+    
     if request.method == 'POST':
         symptoms = request.POST.getlist('symptoms')
         # traverse in the string
         for elements in symptoms:
             symptom += elements
         symptom = symptom[:-1]
+        
         results = predictDisease(symptom)
+        
+        # student = Student.objects.get(user=request.user)
+        # email = student['email']
+
+        # assessments = student.assessment_set.all()
+        # assessments.symptoms = results['symptoms']
+        # assessments.diagnosis = results['final_prediction']
+        # assessments.date_created = datetime.datetime.now()
+        # assessments.student = student.id
+        # assessments.assessment_number = str(uuid.uuid4 ())[0:12]
+        # id_user = student.id
+        studentid = Student.objects.filter(student_id=pk_test)
+
+        email_student = student.email
+        a = Assessment.objects.create(
+            student = student,
+            assessment_number = str(uuid.uuid4 ())[0:12],
+            date_created = datetime.datetime.now(),
+            symptoms = results['symptoms'], 
+            diagnosis = results['final_prediction']
+        ).save()
+
     return render(request, 'student/assessment.html', results)
